@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Get User Media</title>
+</head>
+<body>
+	<video class="video1" autoplay></video>
+	<video class="video2" autoplay></video>	
+	<script src="../build/build.js"></script>
+	<script>
+	  var media = require('media')();
+	  var video = document.querySelector('.video1');
+
+	  media.set('video', true);
+	  media(function(stream, url) {
+	  	video.src = stream;
+	  });
+	</script>
+</body>
+</html>

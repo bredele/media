@@ -1,0 +1,27 @@
+{
+  "name": "media",
+  "version": "0.0.0",
+  "description": "getUserMedia but better",
+  "main": "index.js",
+  "scripts": {
+    "test": "open test/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bredele/media.git"
+  },
+  "keywords": [
+    "webrtc",
+    "getUserMedia",
+    "media",
+    "video",
+    "audio",
+    "screencapture"
+  ],
+  "author": "Olivier Wietrich <olivier.wietrich@gmail.com> (http://github.com/bredele)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bredele/media/issues"
+  },
+  "homepage": "https://github.com/bredele/media"
+}
