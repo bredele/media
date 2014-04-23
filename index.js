@@ -27,15 +27,25 @@ module.exports = media;
  * @api public
  */
 
-function media(obj) {
+function media(obj, success, error) {
   var store = new Store(obj);
-  var cb = function(success, error) {
+  var cb = function(fn, err) {
     navigator.getMedia(store.data, function(stream) {
       var url;
       if (window.URL) url = window.URL.createObjectURL(stream);
-      success(stream, url);
+      store.once('stop', function() {
+        stream.stop();
+      });
+      fn(stream, url);
     }, error);
   };
+
+  cb.stop = function() {
+    // should not stop before capture
+    store.emit('stop');
+  };
+
   cb.__proto__ = store;
+  if(success) cb(success, error);
   return cb;
 }

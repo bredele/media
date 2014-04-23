@@ -7,7 +7,9 @@
   "dependencies": {
     "bredele/datastore": "^1.0.4"
   },
-  "development": {},
+  "development": {
+    "bredele/datastore": "^1.0.4"
+  },
   "license": "MIT",
   "main": "index.js",
   "scripts": [

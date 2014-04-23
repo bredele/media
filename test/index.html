@@ -9,13 +9,29 @@
 	<video class="video2" autoplay></video>	
 	<script src="../build/build.js"></script>
 	<script>
-	  var media = require('media')();
-	  var video = document.querySelector('.video1');
+	  var media = require('media');
+	  var Store = require('datastore');
+	  var el1 = document.querySelector('.video1');
+	  var el2 = document.querySelector('.video2');	  
 
-	  media.set('video', true);
-	  media(function(stream, url) {
-	  	video.src = stream;
+	  var video1 = media();
+	  video1.set('video', true);
+	  video1(function(stream, url) {
+	  	el1.src = url;
 	  });
+
+	  setTimeout(function() {
+	  	video1.stop();
+	  }, 4000);
+
+	  media({
+	  	video: true
+	  }, function(stream, url) {
+	  	el2.src = url;
+	  });
+
+
+
 	</script>
 </body>
 </html>
