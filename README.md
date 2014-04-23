@@ -55,8 +55,9 @@ video(function(stream, url) {
 });
 ```
 
+<!--   The idea is that you a media config should be more that its constraints. -->
   
-
+<!-- stop -->
 
 ## License
 

@@ -37,6 +37,7 @@ function media(obj, success, error) {
         stream.stop();
       });
       fn(stream, url);
+      store.emit('capture', stream, url);
     }, error);
   };
 

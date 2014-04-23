@@ -10,15 +10,18 @@
 	<script src="../build/build.js"></script>
 	<script>
 	  var media = require('media');
-	  var Store = require('datastore');
 	  var el1 = document.querySelector('.video1');
-	  var el2 = document.querySelector('.video2');	  
+	  var el2 = document.querySelector('.video2');	
+
+	  var error = function(err) {
+	  	console.log(err);
+	  }; 
 
 	  var video1 = media();
 	  video1.set('video', true);
 	  video1(function(stream, url) {
 	  	el1.src = url;
-	  });
+	  }, error);
 
 	  setTimeout(function() {
 	  	video1.stop();
@@ -28,7 +31,7 @@
 	  	video: true
 	  }, function(stream, url) {
 	  	el2.src = url;
-	  });
+	  }, error);
 
 
 
