@@ -18,18 +18,20 @@
 	  }; 
 
 	  var video1 = media();
-	  video1.set('video', true);
+	  video1.set('audio', false);
 	  video1(function(stream, url) {
 	  	el1.src = url;
 	  }, error);
+
+	  video1.on('stop', function() {
+	  	console.log('video1 stopped');
+	  });
 
 	  setTimeout(function() {
 	  	video1.stop();
 	  }, 4000);
 
-	  media({
-	  	video: true
-	  }, function(stream, url) {
+	  media(function(stream, url) {
 	  	el2.src = url;
 	  }, error);
 

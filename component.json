@@ -5,11 +5,11 @@
   "version": "0.0.0",
   "keywords": [],
   "dependencies": {
-    "bredele/datastore": "^1.0.4"
+    "bredele/datastore": "^1.0.4",
+    "bredele/wedge": "~0.1.0",
+    "bredele/deus": "~0.3.2"
   },
-  "development": {
-    "bredele/datastore": "^1.0.4"
-  },
+  "development": {},
   "license": "MIT",
   "main": "index.js",
   "scripts": [

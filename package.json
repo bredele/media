@@ -23,5 +23,10 @@
   "bugs": {
     "url": "https://github.com/bredele/media/issues"
   },
-  "homepage": "https://github.com/bredele/media"
+  "homepage": "https://github.com/bredele/media",
+  "dependencies": {
+    "wedge": "^0.1.0",
+    "datastore": "^1.0.4",
+    "deus": "^0.3.2"
+  }
 }

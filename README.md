@@ -15,7 +15,8 @@ with [component](http://github.com/component/component):
 
 ### shim
  
-  media is a basic shim for `getUserMedia`. It works on all browsers supporting [webrtc](http://www.webrtc.org/) and automatically create a blob url from the media stream if supported.
+  media is a basic shim for `getUserMedia`. It works on all browsers supporting [webrtc](http://www.webrtc.org/) and automatically creates a blob url from the media stream if supported. 
+
 
 ```js
 var media = require('media');
@@ -55,9 +56,79 @@ video(function(stream, url) {
 });
 ```
 
-<!--   The idea is that you a media config should be more that its constraints. -->
+  The idea is that a media's config should be more than just its constraints (video and audio). 
+
+```js
+var video = media({
+	video: true
+});
+
+video.set('type', 'streaming');
+video.set({
+	url: 'http://youtu.be/D7EFot_kmS0',
+	access: 'admin'
+});
+```
+
+## Things you should know
+
+### constraints
+
+  By default, media apply the following [constraints](http://src.chromium.org/svn/trunk/src/chrome/test/data/webrtc/manual/constraints.html):
+
+```
+{
+  "audio": true,
+  "video": {
+    "mandatory": {},
+    "optional": []
+  }
+}
+``` 
+
+  and passing a config (containing the constraints) is optional
+
+```js
+var media = require('media');
+media(function(stream, url) {
+	// do something with stream or url if exists
+});
+``` 
+
+### listen and start/stop capture
+
+  media is an [emitter](http://github.com/component/emitter) and you can listen changes on a media's config
+
+```js
+var media = require('media')();
+media.on('change audio', function() {
+	// do something
+});
+media.set('audio', false);
+``` 
+
+  or when a media is captured
+
+```js
+media.on('capture, function(stream, ul) {
+	// do something on stream
+});
+media(function(stream, url) {
+	// capture stream and render
+});
+``` 
+
+ or when a media is stopped
+
+
+```js
+media.on('stop, function() {
+	// do something on stop
+});
+
+media.stop();
+``` 
   
-<!-- stop -->
 
 ## License
 
