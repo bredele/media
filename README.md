@@ -111,7 +111,7 @@ media.set('audio', false);
   or when a media is captured
 
 ```js
-media.on('capture, function(constraints, stream, ul) {
+media.on('capture', function(constraints, stream, ul) {
 	// do something
 });
 media(function(stream, url) {
@@ -123,7 +123,7 @@ media(function(stream, url) {
 
 
 ```js
-media.on('stop, function() {
+media.on('stop', function() {
 	// do something on stop
 });
 
