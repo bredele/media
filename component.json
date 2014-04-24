@@ -5,9 +5,9 @@
   "version": "0.1.2",
   "keywords": [],
   "dependencies": {
-    "bredele/datastore": "^1.0.4",
-    "bredele/wedge": "~0.1.0",
+    "bredele/datastore": "^1.0.5",
     "bredele/deus": "~0.3.3",
+    "bredele/wedge": "~0.1.0",
     "bredele/store-toggle": "~0.1.0"
   },
   "development": {},
