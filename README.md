@@ -49,6 +49,7 @@ var video = media();
 
 // set config video
 video.set('video', true);
+video.disable('audio');
 
 // get video user media
 video(function(stream, url) {
@@ -110,8 +111,8 @@ media.set('audio', false);
   or when a media is captured
 
 ```js
-media.on('capture, function(stream, ul) {
-	// do something on stream
+media.on('capture, function(constraints, stream, ul) {
+	// do something
 });
 media(function(stream, url) {
 	// capture stream and render

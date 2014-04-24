@@ -18,7 +18,11 @@
 	  }; 
 
 	  var video1 = media();
-	  video1.set('audio', false);
+	  video1.disable('audio');
+	  video1.on('capture', function(constraints) {
+	  	console.log('video1 captured', constraints);
+	  });
+
 	  video1(function(stream, url) {
 	  	el1.src = url;
 	  }, error);
@@ -31,11 +35,13 @@
 	  	video1.stop();
 	  }, 4000);
 
-	  media(function(stream, url) {
+	  var video2 = media(function(stream, url) {
 	  	el2.src = url;
 	  }, error);
 
-
+	  video2.on('stop', function() {
+	  	console.log('video2 stopped');
+	  });
 
 	</script>
 </body>

@@ -7,6 +7,7 @@
 var Store = require('datastore');
 var wedge = require('wedge');
 var deus = require('deus');
+var toggle = require('store-toggle');
 
 // cross browser getUserMedia
 
@@ -50,13 +51,15 @@ function media(obj, success, error) {
   // intialize media's config
   
   var store = new Store(constraints);
+  store.use(toggle);
   store.set(obj);
 
   /**
-   * [cb description]
-   * @param  {Function} fn  [description]
-   * @param  {[type]}   err [description]
-   * @return {Function}     [description]
+   * Get user media and create blob url.
+   * 
+   * @param  {Function} fn  
+   * @param  {Function}   err 
+   * @api private
    */
   
   var cb = function(fn, err) {
@@ -64,11 +67,11 @@ function media(obj, success, error) {
     navigator.getMedia(data, function(stream) {
       var url;
       if (window.URL) url = window.URL.createObjectURL(stream);
-      store.once('stop', function() {
+      cb.once('stop', function() {
         stream.stop();
       });
       fn(stream, url);
-      store.emit('capture', stream, url);
+      cb.emit('capture', data, stream, url);
     }, error);
   };
 
@@ -78,7 +81,7 @@ function media(obj, success, error) {
    */
   
   cb.stop = function() {
-    store.emit('stop');
+    cb.emit('stop');
     return cb;
   };
 

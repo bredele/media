@@ -7,7 +7,8 @@
   "dependencies": {
     "bredele/datastore": "^1.0.4",
     "bredele/wedge": "~0.1.0",
-    "bredele/deus": "~0.3.2"
+    "bredele/deus": "~0.3.2",
+    "bredele/store-toggle": "~0.1.0"
   },
   "development": {},
   "license": "MIT",
