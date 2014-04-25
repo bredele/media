@@ -4,7 +4,7 @@
  * @api private
  */
 
-var Store = require('datastore');
+Store = require('datastore');
 var wedge = require('wedge');
 var deus = require('deus');
 var toggle = require('store-toggle');
@@ -23,8 +23,10 @@ var constraints =  {
   "video": {
     "mandatory": {},
     "optional": []
-  }
+  },
+  "autoplay": true
 };
+
 
 
 /**
@@ -47,11 +49,12 @@ module.exports = deus('object', 'function', media);
  */
 
 function media(obj, success, error) {
-
+  
   // intialize media's config
   
-  var store = new Store(constraints);
+  var store = new Store();
   store.use(toggle);
+  store.set(constraints);
   store.set(obj);
 
   /**
@@ -63,7 +66,7 @@ function media(obj, success, error) {
    */
   
   var cb = function(fn, err) {
-    var data = wedge(store.data, 'video', 'audio');
+    var data = wedge(cb.data, 'video', 'audio');
     navigator.getMedia(data, function(stream) {
       var url;
       if (window.URL) url = window.URL.createObjectURL(stream);
