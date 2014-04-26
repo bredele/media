@@ -4,10 +4,11 @@
  * @api private
  */
 
-Store = require('datastore');
+var Store = require('datastore');
 var wedge = require('wedge');
 var deus = require('deus');
 var toggle = require('store-toggle');
+
 
 // cross browser getUserMedia
 
@@ -15,6 +16,7 @@ navigator.getMedia = ( navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||
   navigator.mozGetUserMedia ||
   navigator.msGetUserMedia);
+
 
 // default constraints
 
@@ -28,12 +30,36 @@ var constraints =  {
 };
 
 
-
 /**
  * Expose 'media'
  */
 
-module.exports = deus('object', 'function', media);
+module.exports = Media;
+
+
+/**
+ * Media factory.
+ *
+ * Examples:
+ *
+ *  media();
+ *  media(obj, success);
+ *  media(success);
+ * 
+ * @param  {Object} obj    
+ * @param  {Function} success 
+ * @param  {Function} error 
+ * @return {Media}
+ * @api private
+ */
+
+var factory = deus('object', 'function', function(obj, success, error) {
+  var media = new Media(obj);
+  media.on('error', error);
+  if(success) media.capture(success);
+  return media;
+});
+
 
 /**
  * media constructor.
@@ -48,51 +74,67 @@ module.exports = deus('object', 'function', media);
  * @api public
  */
 
-function media(obj, success, error) {
-  
-  // intialize media's config
-  
-  var store = new Store();
-  store.use(toggle);
-  store.set(constraints);
-  store.set(obj);
-
-  /**
-   * Get user media and create blob url.
-   * 
-   * @param  {Function} fn  
-   * @param  {Function}   err 
-   * @api private
-   */
-  
-  var cb = function(fn, err) {
-    var data = wedge(cb.data, 'video', 'audio');
-    navigator.getMedia(data, function(stream) {
-      var url;
-      if (window.URL) url = window.URL.createObjectURL(stream);
-      cb.once('stop', function() {
-        stream.stop();
-      });
-      fn(stream, url);
-      cb.emit('capture', data, stream, url);
-    }, error);
-  };
-
-  /**
-   * stop capture.
-   * @api public
-   */
-  
-  cb.stop = function() {
-    cb.emit('stop');
-    return cb;
-  };
-
-  // set media's prototype
-
-  cb.__proto__ = store;
-
-  if(success) cb(success, error);
-
-  return cb;
+function Media(obj, success, error) {
+  if(!(this instanceof Media)) {
+    return factory.apply(null, arguments);
+  }
+  Store.call(this);
+  this.use(toggle);
+  this.set(constraints);
+  this.set(obj);
 }
+
+
+// Media is a datastore
+
+Media.prototype = Store.prototype;
+
+
+/**
+ * Capture media and emit stream
+ * event.
+ *
+ * Capture is call automatically by constructor when
+ * a success callbacl is specified. 
+ *
+ * Examples:
+ *
+ *   media.capture();
+ *   media.capture(function(stream, url) {
+ *     // do something with string
+ *   });
+ * 
+ * @param  {Function} cb (optional)
+ * @return {this}
+ * @api public
+ */
+
+Media.prototype.capture = function(cb) {
+  var data = wedge(this.data, 'video', 'audio');
+  var _this = this;
+  navigator.getMedia(data, function(stream) {
+    var url;
+    if (window.URL) url = window.URL.createObjectURL(stream);
+    _this.once('stop', function() {
+      stream.stop();
+    });
+    _this.emit('stream', data, stream, url);
+    if(cb) cb(stream, url);
+  }, function(error) {
+    _this.emit('error', error);
+  });
+  return this;
+};
+
+
+/**
+ * Stop captured media.
+ * 
+ * @return {this}
+ * @api public
+ */
+
+Media.prototype.stop = function() {
+  this.emit('stop');
+  return this;
+};

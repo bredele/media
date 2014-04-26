@@ -5,7 +5,7 @@
 	<title>Get User Media</title>
 </head>
 <body>
-	<video class="video1" autoplay></video>
+	<video class="video1" autoplay muted></video>
 	<video class="video2" autoplay></video>	
 	<script src="../build/build.js"></script>
 	<script>
@@ -13,19 +13,16 @@
 	  var el1 = document.querySelector('.video1');
 	  var el2 = document.querySelector('.video2');	
 
-
-	  var video1 = media({
-	  	type: 'streaming'
-	  }, function(stream, url) {
-	  	el1.src = url;
-	  });
-
 	  var video2 = media(function(stream, url) {
 	  	el2.src = url;
 	  });
 
-	  console.log(video1.toJSON());
-	  console.log(video2.toJSON());
+	  var video1 = media({
+	  	type: 'streaming'
+	  });
+	  video1.capture(function(stream, url) {
+	  	el1.src = url;
+	  });
 
 	</script>
 </body>

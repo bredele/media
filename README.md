@@ -52,7 +52,7 @@ video.set('video', true);
 video.disable('audio');
 
 // get video user media
-video(function(stream, url) {
+video.capture(function(stream, url) {
   // do something with stream or url if exists
 });
 ```
@@ -101,33 +101,33 @@ media(function(stream, url) {
   media is an [emitter](http://github.com/component/emitter) and you can listen changes on a media's config
 
 ```js
-var media = require('media')();
-media.on('change audio', function() {
+var player = require('media')();
+player.on('change audio', function() {
 	// do something
 });
-media.set('audio', false);
+player.set('audio', false);
 ``` 
 
   or when a media is captured
 
 ```js
-media.on('capture', function(constraints, stream, ul) {
+player.on('stream', function(constraints, stream, ul) {
 	// do something
 });
-media(function(stream, url) {
-	// capture stream and render
-});
+
+// capture callback is optional
+player.capture();
 ``` 
 
  or when a media is stopped
 
 
 ```js
-media.on('stop', function() {
+player.on('stop', function() {
 	// do something on stop
 });
 
-media.stop();
+player.stop();
 ``` 
   
 
