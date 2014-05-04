@@ -55,7 +55,7 @@ module.exports = Media;
 
 var factory = deus('object', 'function', function(obj, success, error) {
   var media = new Media(obj);
-  media.on('error', error);
+  if(error) media.on('error', error);
   if(success) media.capture(success);
   return media;
 });
