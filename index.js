@@ -35,7 +35,9 @@ var constraints =  {
 module.exports = function(options, success, error) {
   return new Promise(function (fulfill, reject) {
     navigator.getMedia(options || constraints, function(stream) {
-      success && success(stream)
+      var url
+      if (window.URL) url = window.URL.createObjectURL(stream)
+      success && success(stream, url)
       fulfill(stream)
     }, function(err) {
       error && error(err)

@@ -13,3 +13,8 @@ media()
     if (window.URL) url = window.URL.createObjectURL(stream)
     el1.src = url
   })
+
+
+media(null, function(stream, url) {
+  el2.src = url;
+})
