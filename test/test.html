@@ -6,12 +6,12 @@
 </head>
 <body>
 	<video class="video1" autoplay muted></video>
-	<video class="video2" autoplay></video>	
-	<script src="../build/build.js"></script>
+	<video class="video2" autoplay></video>
+	<script src="../build.js"></script>
 	<script>
 	  var media = require('media');
 	  var el1 = document.querySelector('.video1');
-	  var el2 = document.querySelector('.video2');	
+	  var el2 = document.querySelector('.video2');
 
 	  var video2 = media(function(stream, url) {
 	  	el2.src = url;
