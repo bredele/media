@@ -33,13 +33,12 @@ var constraints =  {
  * @api private
  */
 module.exports = function(options, success, error) {
-  return new Promise(function (fulfill, reject){
-    navigator.getMedia(data, function(stream) {
-      var url
-      if (window.URL) url = window.URL.createObjectURL(stream)
-      fulfill(stream, url)
+  return new Promise(function (fulfill, reject) {
+    navigator.getMedia(options || constraints, function(stream) {
+      success && success(stream)
+      fulfill(stream)
     }, function(err) {
-      error(err)
+      error && error(err)
       reject(err)
     });
   })
