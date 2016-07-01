@@ -1,16 +1,7 @@
 
 /**
- * Module dependencies.
- * @api private
+ * Shim
  */
-
-var Store = require('datastore');
-var wedge = require('wedge');
-var deus = require('deus');
-var toggle = require('store-toggle');
-
-
-// cross browser getUserMedia
 
 navigator.getMedia = ( navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||
@@ -18,7 +9,9 @@ navigator.getMedia = ( navigator.getUserMedia ||
   navigator.msGetUserMedia);
 
 
-// default constraints
+/**
+ * Default constraints.
+ */
 
 var constraints =  {
   "audio": true,
@@ -34,7 +27,9 @@ var constraints =  {
  * Expose 'media'
  */
 
-module.exports = Media;
+module.exports = function(options, success, error) {
+
+};
 
 
 /**
@@ -45,10 +40,10 @@ module.exports = Media;
  *  media();
  *  media(obj, success);
  *  media(success);
- * 
- * @param  {Object} obj    
- * @param  {Function} success 
- * @param  {Function} error 
+ *
+ * @param  {Object} obj
+ * @param  {Function} success
+ * @param  {Function} error
  * @return {Media}
  * @api private
  */
@@ -95,7 +90,7 @@ Media.prototype = Store.prototype;
  * event.
  *
  * Capture is call automatically by constructor when
- * a success callbacl is specified. 
+ * a success callbacl is specified.
  *
  * Examples:
  *
@@ -103,7 +98,7 @@ Media.prototype = Store.prototype;
  *   media.capture(function(stream, url) {
  *     // do something with string
  *   });
- * 
+ *
  * @param  {Function} cb (optional)
  * @return {this}
  * @api public
@@ -129,7 +124,7 @@ Media.prototype.capture = function(cb) {
 
 /**
  * Stop captured media.
- * 
+ *
  * @return {this}
  * @api public
  */
