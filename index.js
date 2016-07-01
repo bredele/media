@@ -28,7 +28,9 @@ var constraints =  {
  */
 
 module.exports = function(options, success, error) {
-
+  return new Promise(function (fulfill, reject){
+    
+  });
 };
 
 
