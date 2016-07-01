@@ -29,5 +29,8 @@
     "wedge": "^0.1.0",
     "deus": "^0.3.3",
     "datastore": "^1.0.5"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.1"
   }
 }
