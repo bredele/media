@@ -3,19 +3,17 @@ media
 
   `getUserMedia` but better.
 
-	
+
 ## Installation
 
-with [component](http://github.com/component/component):
-
-	$ component install bredele/media
+	$ npm install bredele/media --save
 
 
 ## Usage
 
 ### shim
- 
-  media is a basic shim for `getUserMedia`. It works on all browsers supporting [webrtc](http://www.webrtc.org/) and automatically creates a blob url from the media stream if supported. 
+
+`media` is a basic shim for `getUserMedia`. It works on all browsers supporting [webrtc](http://www.webrtc.org/) and automatically creates a blob url from the media stream if supported.
 
 
 ```js
@@ -27,51 +25,17 @@ media({
 });
 ```
 
-  media also handles errors
+### promises
+
+`media` returns a promise to be compliant with thee future API of `getUserMedia`
 
 ```js
-media({
-	video: true
-}, success, function(error) {
-	// something went wrong
-});
+var media = require('media');
+media()
+  .then(function(stream) {
+    // do something with stream
+  })
 ```
-
-  but it does way more than that...
-
-### store
-
-  media is a **[datastore](http://github.com/bredele/datastore)** and allows you to dynamically set/get or listen changes in a media config.
-
-```js
-// can be initialize with an optional config object
-var video = media();
-
-// set config video
-video.set('video', true);
-video.disable('audio');
-
-// get video user media
-video.capture(function(stream, url) {
-  // do something with stream or url if exists
-});
-```
-
-  The idea is that a media's config should be more than just its constraints (video and audio). 
-
-```js
-var video = media({
-	video: true
-});
-
-video.set('type', 'streaming');
-video.set({
-	url: 'http://youtu.be/D7EFot_kmS0',
-	access: 'admin'
-});
-```
-
-## Things you should know
 
 ### constraints
 
@@ -85,51 +49,8 @@ video.set({
     "optional": []
   }
 }
-``` 
+```
 
-  and passing a config (containing the constraints) is optional
-
-```js
-var media = require('media');
-media(function(stream, url) {
-	// do something with stream or url if exists
-});
-``` 
-
-### listen and start/stop capture
-
-  media is an [emitter](http://github.com/component/emitter) and you can listen changes on a media's config
-
-```js
-var player = require('media')();
-player.on('change audio', function() {
-	// do something
-});
-player.set('audio', false);
-``` 
-
-  or when a media is captured
-
-```js
-player.on('stream', function(constraints, stream, ul) {
-	// do something
-});
-
-// capture callback is optional
-player.capture();
-``` 
-
- or when a media is stopped
-
-
-```js
-player.on('stop', function() {
-	// do something on stop
-});
-
-player.stop();
-``` 
-  
 
 ## License
 
