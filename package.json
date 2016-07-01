@@ -4,8 +4,8 @@
   "description": "getUserMedia but better",
   "main": "index.js",
   "scripts": {
-    "build" : "browserify index.js > build.js"
-    "test": "@npm run build && open test/index.html"
+    "build" : "browserify index.js > build.js",
+    "test": "npm run build && open test/index.html"
   },
   "repository": {
     "type": "git",
